@@ -3,12 +3,12 @@ from setuptools import find_packages, setup
 setup(
     name='inheritance_graph',
     packages=find_packages(),
-    version='0.3',
+    version='0.4',
     description='A tool to help debug inheritance failures.',
     author='Neil Girdhar',
     author_email='mistersheik@gmail.com',
     url='https://github.com/NeilGirdhar/inheritance_graph',
-    download_url='https://github.com/neilgirdhar/inheritance_graph/archive/0.3.tar.gz',
+    download_url='https://github.com/neilgirdhar/inheritance_graph/archive/0.4.tar.gz',
     keywords=['inheritance', 'debugging'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
