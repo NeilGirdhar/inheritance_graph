@@ -23,9 +23,21 @@ A tool to help debug inheritance failures.
     class B(E, Dec, Dif):
         pass
 
+Suppose, you now try:
+
+    class Z(B, Err):
+        pass
+        
+Then, Python merely says:
+
+    TypeError: Cannot create a consistent method resolution
+    order (MRO) for bases E, Dif
+
+But if you call:
+
     mro_check((B, Err))
 
-displays
+it displays
 
     Cycle found:
        Dif precedes R in Err's MRO (and Err was in the proposed based class list) because
