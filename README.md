@@ -1,5 +1,6 @@
 # Inheritance Graph
 [![PyPI version](https://badge.fury.io/py/inheritance_graph.svg)](https://badge.fury.io/py/inheritance_graph)
+
 A tool to help debug inheritance failures.
 
 # Example
