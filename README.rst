@@ -1,10 +1,16 @@
-# Inheritance Graph
-[![PyPI version](https://badge.fury.io/py/inheritance_graph.svg)](https://badge.fury.io/py/inheritance_graph)
+====
+Inheritance Graph
+====
+.. image:: https://badge.fury.io/py/inheritance_graph.svg
+    :target: https://badge.fury.io/py/inheritance_graph.svg
 
 A tool to help debug inheritance failures.
 
-# Example
+----
+Example
+----
 
+.. code-block:: python
     from inheritance_graph import mro_check
 
     class Dec:
@@ -27,19 +33,25 @@ A tool to help debug inheritance failures.
 
 Suppose, you now try:
 
+.. code-block:: python
     class Z(B, Err):
         pass
-        
+
 Then, Python merely says:
 
-    TypeError: Cannot create a consistent method resolution
-    order (MRO) for bases E, Dif
+::
+
+    TypeError: Cannot create a consistent method resolution order (MRO) for bases E, Dif
 
 But if you call:
+
+.. code-block:: python
 
     mro_check((B, Err))
 
 it displays
+
+::
 
     Cycle found:
        Dif precedes R in Err's MRO (and Err was in the proposed based class list) because
