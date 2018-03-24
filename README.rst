@@ -11,6 +11,7 @@ Example
 ----
 
 .. code-block:: python
+
     from inheritance_graph import mro_check
 
     class Dec:
@@ -34,6 +35,7 @@ Example
 Suppose, you now try:
 
 .. code-block:: python
+
     class Z(B, Err):
         pass
 
