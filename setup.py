@@ -24,7 +24,7 @@ setup(
     keywords=['inheritance', 'debugging'],
     install_requires = ['networkx>=2.0',
                         'more-itertools>=3.2.0'],
-    python_requires='>=3.4'
+    python_requires='>=3.4',
     setup_requires=['pytest-runner'],
     tests_require=['pytest'],
 )
