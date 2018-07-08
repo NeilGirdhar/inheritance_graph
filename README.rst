@@ -2,7 +2,7 @@
 Inheritance Graph
 ====
 .. image:: https://badge.fury.io/py/inheritance_graph.svg
-    :target: https://badge.fury.io/py/inheritance_graph.svg
+    :target: https://badge.fury.io/py/inheritance_graph
 
 A tool to help debug inheritance failures.
 
