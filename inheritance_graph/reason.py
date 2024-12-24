@@ -1,77 +1,71 @@
-from abc import abstractmethod
-
-from ipromise import AbstractBaseClass, implements
+from typing import Any, override
 
 
-def q(x):
+def q(x: type[Any]) -> str:
     return x.__qualname__
 
 
-def _qs(bases):
-    return str(list(base.__qualname__ for base in bases))
-
-
-class Reason(AbstractBaseClass):
-
-    def __init__(self):
+class Reason:
+    def __init__(self) -> None:
+        super().__init__()
         self.subreasons = []
 
-    @abstractmethod
-    def text(self):
+    def text(self) -> str:
         raise NotImplementedError
 
-    def display(self, n=1):
-        print("  " * n, self.text())
+    def display(self, n: int = 1) -> None:
         for subreason in self.subreasons:
             subreason.display(n + 1)
 
 
 class APrecedesBReason(Reason):
-
-    def __init__(self, antecedent, subsequent, **kwargs):
+    def __init__(self,
+                 antecedent: type[Any],
+                 subsequent: type[Any],
+                 **kwargs: Any
+                 ) -> None:
         super().__init__(**kwargs)
         self.antecedent = antecedent
         self.subsequent = subsequent
 
 
 class ProposedBaseClassListReason(APrecedesBReason):
-
-    @implements(Reason)
-    def text(self):
+    @override
+    def text(self) -> str:
         return (f"{q(self.antecedent)} precedes {q(self.subsequent)} in the "
                 "proposed based class list.")
 
 
 class DirectSubclassReason(APrecedesBReason):
-
-    @implements(Reason)
-    def text(self):
+    @override
+    def text(self) -> str:
         return (f"{q(self.antecedent)} precedes {q(self.subsequent)} because "
                 "it inherits from it directly.")
 
 
 class PivotedReason(APrecedesBReason):
-
-    def __init__(self, pivot, pivot_cause, **kwargs):
+    def __init__(self,
+                 pivot: type[Any],
+                 pivot_cause: type[Any] | None,
+                 **kwargs: Any
+                 ) -> None:
         super().__init__(**kwargs)
         self.pivot = pivot
         self.pivot_cause = pivot_cause
 
-    @implements(Reason)
-    def text(self):
+    @override
+    def text(self) -> str:
         if self.pivot_cause is None:
             return (f"{q(self.antecedent)} precedes {q(self.subsequent)} in "
                     f"{q(self.pivot)}'s MRO (and {q(self.pivot)} was in the "
                     "proposed based class list) because")
-        else:
-            return (f"{q(self.antecedent)} precedes {q(self.subsequent)} in "
-                    f"{q(self.pivot_cause)}'s "
-                    f"base class {q(self.pivot)}'s MRO because")
+        return (f"{q(self.antecedent)} precedes {q(self.subsequent)} in "
+                f"{q(self.pivot_cause)}'s "
+                f"base class {q(self.pivot)}'s MRO because")
 
 
 class SinglePivotedReason(PivotedReason):
-
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
 
         a = self.antecedent
@@ -88,15 +82,14 @@ class SinglePivotedReason(PivotedReason):
                     pivot=base,
                     pivot_cause=self.pivot))
         if not self.subreasons:
-            def add_subreason(x):
+            def add_subreason(x: type[Any]) -> None:
                 self.subreasons.append(AInhertisFromBReason(x, self.pivot))
             add_subreason(self.antecedent)
             add_subreason(self.subsequent)
 
 
 class AInhertisFromBReason(Reason):
-
-    def __init__(self, ancestor, child, **kwargs):
+    def __init__(self, ancestor: type[Any], child: type[Any], **kwargs: Any) -> None:
         super().__init__(**kwargs)
         self.ancestor = ancestor
         self.child = child
@@ -112,8 +105,8 @@ class AInhertisFromBReason(Reason):
                         AInhertisFromBReason(ancestor, base))
                     break
 
-    @implements(Reason)
-    def text(self):
+    @override
+    def text(self) -> str:
         a = self.ancestor
         c = self.child
         if self.via is None:
