@@ -1,8 +1,20 @@
 ====
 Inheritance Graph
 ====
-.. image:: https://badge.fury.io/py/inheritance_graph.svg
-    :target: https://badge.fury.io/py/inheritance_graph
+
+|pypi| |py_versions|
+
+.. |pypi| image:: https://img.shields.io/pypi/v/inheritance_graph
+   :alt: PyPI - Version
+
+.. |py_versions| image:: https://img.shields.io/pypi/pyversions/inheritance_graph
+   :alt: PyPI - Python Version
+
+.. role:: bash(code)
+    :language: bash
+
+.. role:: python(code)
+    :language: python
 
 A tool to help debug inheritance failures.
 
@@ -66,3 +78,17 @@ it displays
        Dec precedes Dif in B's MRO (and B was in the proposed based class list) because
          Dec is a base class of B
          Dif is a base class of B
+
+-----------------------
+Contribution guidelines
+-----------------------
+
+- Conventions: PEP8.
+
+- How to clean the source:
+
+  - :bash:`ruff check .`
+  - :bash:`pyright`
+  - :bash:`mypy`
+  - :bash:`isort .`
+  - :bash:`pylint inheritance_graph`
