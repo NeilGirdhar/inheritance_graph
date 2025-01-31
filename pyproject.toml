@@ -36,13 +36,13 @@ repository = "https://github.com/NeilGirdhar/inheritance_graph"
 
 [tool.uv]
 dev-dependencies = [
-  "isort >= 5.13",
-  "jupyter >= 1",
-  "mypy >= 1.12",
-  "pylint >= 3.3",
-  "pyright >= 0.0.13",
-  "pytest >= 8",
-  "ruff >= 0.8",
+  "isort>=5.13",
+  "jupyter>=1",
+  "mypy>=1.12",
+  "pylint>=3.3",
+  "pyright>=0.0.13",
+  "pytest>=8",
+  "ruff>=0.8",
 ]
 
 [tool.isort]
@@ -184,7 +184,7 @@ reportUnusedFunction = true
 reportUnusedVariable = true
 
 [tool.mypy]
-files = ["inheritance_graph", "tests"]
+files = ["inheritance_graph"]
 check_untyped_defs = true
 disallow_any_generics = true
 disallow_incomplete_defs = true

@@ -8,7 +8,7 @@ def q(x: type[Any]) -> str:
 class Reason:
     def __init__(self) -> None:
         super().__init__()
-        self.subreasons = []
+        self.subreasons: list[Reason] = []
 
     def text(self) -> str:
         raise NotImplementedError
