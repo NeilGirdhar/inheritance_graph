@@ -43,7 +43,7 @@ dev = [
 ]
 
 [project.urls]
-repository = "https://github.com/NeilGirdhar/inheritance_graph"
+source = "https://github.com/NeilGirdhar/inheritance_graph"
 
 [tool.isort]
 line_length = 100
