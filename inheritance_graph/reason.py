@@ -22,7 +22,7 @@ class APrecedesBReason(Reason):
     def __init__(self,
                  antecedent: type[Any],
                  subsequent: type[Any],
-                 **kwargs: Any
+                 **kwargs: object,
                  ) -> None:
         super().__init__(**kwargs)
         self.antecedent = antecedent
@@ -47,9 +47,9 @@ class PivotedReason(APrecedesBReason):
     def __init__(self,
                  pivot: type[Any],
                  pivot_cause: type[Any] | None,
-                 **kwargs: Any
+                 **kwargs: object,
                  ) -> None:
-        super().__init__(**kwargs)
+        super().__init__(**kwargs)  # pyright: ignore
         self.pivot = pivot
         self.pivot_cause = pivot_cause
 
@@ -65,8 +65,8 @@ class PivotedReason(APrecedesBReason):
 
 
 class SinglePivotedReason(PivotedReason):
-    def __init__(self, **kwargs: Any) -> None:
-        super().__init__(**kwargs)
+    def __init__(self, **kwargs: object) -> None:
+        super().__init__(**kwargs)  # pyright: ignore
 
         a = self.antecedent
         b = self.subsequent
@@ -89,7 +89,7 @@ class SinglePivotedReason(PivotedReason):
 
 
 class AInhertisFromBReason(Reason):
-    def __init__(self, ancestor: type[Any], child: type[Any], **kwargs: Any) -> None:
+    def __init__(self, ancestor: type[Any], child: type[Any], **kwargs: object) -> None:
         super().__init__(**kwargs)
         self.ancestor = ancestor
         self.child = child

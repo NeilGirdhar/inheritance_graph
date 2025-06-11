@@ -14,7 +14,7 @@ __all__ = ['mro_check']
 def _add_edges(g: DiGraph[Any],
                iterable_of_pairs: Iterable[tuple[type[Any], type[Any]]],
                reason_cls: type[Any],
-               **kwargs: Any
+               **kwargs: object,
                ) -> None:
     for a, b in iterable_of_pairs:
         if g.has_edge(a, b):
