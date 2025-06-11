@@ -31,7 +31,7 @@ dependencies = [
   "more-itertools>=3.2.0",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
   "isort>=5.13",
   "jupyter>=1",

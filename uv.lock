@@ -403,7 +403,7 @@ dependencies = [
     { name = "networkx" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
     { name = "isort" },
     { name = "jupyter" },
@@ -416,17 +416,20 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "isort", marker = "extra == 'dev'", specifier = ">=5.13" },
-    { name = "jupyter", marker = "extra == 'dev'", specifier = ">=1" },
     { name = "more-itertools", specifier = ">=3.2.0" },
-    { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.12" },
     { name = "networkx", specifier = ">=2.0" },
-    { name = "pylint", marker = "extra == 'dev'", specifier = ">=3.3" },
-    { name = "pyright", marker = "extra == 'dev'", specifier = ">=0.0.13" },
-    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
-    { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.8" },
 ]
-provides-extras = ["dev"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "isort", specifier = ">=5.13" },
+    { name = "jupyter", specifier = ">=1" },
+    { name = "mypy", specifier = ">=1.12" },
+    { name = "pylint", specifier = ">=3.3" },
+    { name = "pyright", specifier = ">=0.0.13" },
+    { name = "pytest", specifier = ">=8" },
+    { name = "ruff", specifier = ">=0.8" },
+]
 
 [[package]]
 name = "iniconfig"
