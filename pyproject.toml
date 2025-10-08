@@ -7,7 +7,7 @@ name = "inheritance_graph"
 version = "0.5"
 description = "A tool to help debug inheritance failures."
 readme = "README.rst"
-requires-python = ">=3.11,<3.14"
+requires-python = ">=3.11,<3.15"
 license = "Apache-2.0"
 authors = [{email = "mistersheik@gmail.com"}, {name = "Neil Girdhar"}]
 maintainers = [{email = "mistersheik@gmail.com"}, {name = "Neil Girdhar"}]
@@ -20,6 +20,7 @@ classifiers = [
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Programming Language :: Python",
   "Topic :: Software Development :: Libraries :: Python Modules",
   "Topic :: Utilities",
@@ -234,7 +235,7 @@ ignore = [
   "DOC501", # Raised exception `ValueError` missing from docstring.
   "ERA001", # Commented-out code.
   "F722", # Syntax error in forward annotation.
-  "FBT003", # Boolean positional value in function call.
+
   "FIX002", # Line contains TODO, consider resolving the issue.
   "G004", # Logging statement uses f-string.
   "I001", # Import block is un-sorted or un-formatted.
