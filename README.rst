@@ -83,12 +83,11 @@ it displays
 Contribution guidelines
 -----------------------
 
-- Conventions: PEP8.
+The implementation should be consistent with the surrounding style, be type annotated, and pass the
+linters below.
 
-- How to clean the source:
+There are a few tools to clean and check the source:
 
-  - :bash:`ruff check .`
-  - :bash:`pyright`
-  - :bash:`mypy`
-  - :bash:`isort .`
-  - :bash:`pylint inheritance_graph`
+- :bash:`uv run ruff check`
+- :bash:`uv run ruff format`
+- :bash:`uv run ty check`

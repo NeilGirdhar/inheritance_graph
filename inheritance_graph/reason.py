@@ -19,11 +19,12 @@ class Reason:
 
 
 class APrecedesBReason(Reason):
-    def __init__(self,
-                 antecedent: type[Any],
-                 subsequent: type[Any],
-                 **kwargs: object,
-                 ) -> None:
+    def __init__(
+        self,
+        antecedent: type[Any],
+        subsequent: type[Any],
+        **kwargs: object,
+    ) -> None:
         super().__init__(**kwargs)
         self.antecedent = antecedent
         self.subsequent = subsequent
@@ -32,41 +33,49 @@ class APrecedesBReason(Reason):
 class ProposedBaseClassListReason(APrecedesBReason):
     @override
     def text(self) -> str:
-        return (f"{q(self.antecedent)} precedes {q(self.subsequent)} in the "
-                "proposed based class list.")
+        return (
+            f"{q(self.antecedent)} precedes {q(self.subsequent)} in the proposed based class list."
+        )
 
 
 class DirectSubclassReason(APrecedesBReason):
     @override
     def text(self) -> str:
-        return (f"{q(self.antecedent)} precedes {q(self.subsequent)} because "
-                "it inherits from it directly.")
+        return (
+            f"{q(self.antecedent)} precedes {q(self.subsequent)} because "
+            "it inherits from it directly."
+        )
 
 
 class PivotedReason(APrecedesBReason):
-    def __init__(self,
-                 pivot: type[Any],
-                 pivot_cause: type[Any] | None,
-                 **kwargs: object,
-                 ) -> None:
-        super().__init__(**kwargs)  # pyright: ignore
+    def __init__(
+        self,
+        pivot: type[Any],
+        pivot_cause: type[Any] | None,
+        **kwargs: object,
+    ) -> None:
+        super().__init__(**kwargs)  # pyright: ignore  # type: ignore
         self.pivot = pivot
         self.pivot_cause = pivot_cause
 
     @override
     def text(self) -> str:
         if self.pivot_cause is None:
-            return (f"{q(self.antecedent)} precedes {q(self.subsequent)} in "
-                    f"{q(self.pivot)}'s MRO (and {q(self.pivot)} was in the "
-                    "proposed based class list) because")
-        return (f"{q(self.antecedent)} precedes {q(self.subsequent)} in "
-                f"{q(self.pivot_cause)}'s "
-                f"base class {q(self.pivot)}'s MRO because")
+            return (
+                f"{q(self.antecedent)} precedes {q(self.subsequent)} in "
+                f"{q(self.pivot)}'s MRO (and {q(self.pivot)} was in the "
+                "proposed based class list) because"
+            )
+        return (
+            f"{q(self.antecedent)} precedes {q(self.subsequent)} in "
+            f"{q(self.pivot_cause)}'s "
+            f"base class {q(self.pivot)}'s MRO because"
+        )
 
 
 class SinglePivotedReason(PivotedReason):
     def __init__(self, **kwargs: object) -> None:
-        super().__init__(**kwargs)  # pyright: ignore
+        super().__init__(**kwargs)  # pyright: ignore  # type: ignore
 
         a = self.antecedent
         b = self.subsequent
@@ -76,14 +85,16 @@ class SinglePivotedReason(PivotedReason):
 
         for base in self.pivot.__bases__:
             if a in base.__mro__ and b in base.__mro__:
-                self.subreasons.append(SinglePivotedReason(
-                    antecedent=a,
-                    subsequent=b,
-                    pivot=base,
-                    pivot_cause=self.pivot))
+                self.subreasons.append(
+                    SinglePivotedReason(
+                        antecedent=a, subsequent=b, pivot=base, pivot_cause=self.pivot
+                    )
+                )
         if not self.subreasons:
+
             def add_subreason(x: type[Any]) -> None:
                 self.subreasons.append(AInhertisFromBReason(x, self.pivot))
+
             add_subreason(self.antecedent)
             add_subreason(self.subsequent)
 
@@ -101,8 +112,7 @@ class AInhertisFromBReason(Reason):
             for base in self.child.__bases__:
                 if ancestor in base.__mro__:
                     self.via = base
-                    self.subreasons.append(
-                        AInhertisFromBReason(ancestor, base))
+                    self.subreasons.append(AInhertisFromBReason(ancestor, base))
                     break
 
     @override

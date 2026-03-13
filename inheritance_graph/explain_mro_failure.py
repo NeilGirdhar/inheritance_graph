@@ -8,14 +8,15 @@ from networkx import DiGraph, simple_cycles
 
 from .reason import DirectSubclassReason, ProposedBaseClassListReason, SinglePivotedReason
 
-__all__ = ['mro_check']
+__all__ = ["mro_check"]
 
 
-def _add_edges(g: DiGraph[Any],
-               iterable_of_pairs: Iterable[tuple[type[Any], type[Any]]],
-               reason_cls: type[Any],
-               **kwargs: object,
-               ) -> None:
+def _add_edges(
+    g: DiGraph[Any],
+    iterable_of_pairs: Iterable[tuple[type[Any], type[Any]]],
+    reason_cls: type[Any],
+    **kwargs: object,
+) -> None:
     for a, b in iterable_of_pairs:
         if g.has_edge(a, b):
             continue
@@ -26,8 +27,7 @@ def _add_edges(g: DiGraph[Any],
 def mro_check(proposed_base_class_list: list[type[Any]]) -> None:
     g = DiGraph()
 
-    _add_edges(g, pairwise(proposed_base_class_list),
-               ProposedBaseClassListReason)
+    _add_edges(g, pairwise(proposed_base_class_list), ProposedBaseClassListReason)
 
     for proposed_base in proposed_base_class_list:
         for base in proposed_base.__mro__:
@@ -35,13 +35,16 @@ def mro_check(proposed_base_class_list: list[type[Any]]) -> None:
                 _add_edges(g, [(base, bases_base)], DirectSubclassReason)
 
     for proposed_base in proposed_base_class_list:
-        _add_edges(g, pairwise(proposed_base.__mro__),
-                   SinglePivotedReason,
-                   pivot=proposed_base,
-                   pivot_cause=None)
+        _add_edges(
+            g,
+            pairwise(proposed_base.__mro__),
+            SinglePivotedReason,
+            pivot=proposed_base,
+            pivot_cause=None,
+        )
 
     for cycle in simple_cycles(g):
         for a, b in pairwise([*cycle, cycle[0]]):
             for edge in g.edges(a, data=True):
                 if edge[1] == b:
-                    edge[2]['reason'].display()
+                    edge[2]["reason"].display()
